@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deixe o ChatGPT pronto para o seu negócio | Agentes de IA, Nível 1</title>
+<meta name="description" content="Curso prático em 8 módulos para quem não programa: um assistente no ChatGPT que responde com os preços, as regras e o tom de voz do seu negócio. R$ 97, garantia de 7 dias.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Deixe o ChatGPT pronto para o seu negócio">
+<meta property="og:description" content="Curso prático em 8 módulos para quem não programa. R$ 97, garantia de 7 dias.">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/sgambatti/curso-ia-banners@main/videos/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F3F5F2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F3F5F2;
+  --surface:#FFFFFF;
+  --ink:#1B1F1D;
+  --muted:#4F5853;
+  --line:#D6DCD7;
+  --accent:#C2410C;
+  --accent-hover:#A8380A;
+  --bubble-plain:#E9ECE9;
+  --bubble-biz:#DDF3D5;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:4px}
+.wrap{width:100%;max-width:1080px;margin:0 auto;padding:0 20px}
+.narrow{max-width:680px}
+h1,h2,h3{font-family:var(--display);line-height:1.08;letter-spacing:-0.01em;margin:0}
+h1{font-size:clamp(2.4rem,7.5vw,4.4rem);font-weight:800}
+h2{font-size:clamp(1.75rem,4.6vw,2.6rem);font-weight:800;margin-bottom:.6em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0 0 1em}
+.lead{font-size:1.2rem;color:var(--muted);max-width:34em}
+
+/* buy button */
+.buy{display:inline-flex;align-items:center;justify-content:center;gap:.5em;background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:1.1rem;padding:16px 26px;border-radius:12px;min-height:56px;transition:background .15s}
+.buy:hover{background:var(--accent-hover)}
+.price-note{color:var(--muted);font-size:.95rem;margin-top:.6em}
+
+/* header */
+.top{padding:18px 0}
+.top .wrap{display:flex;justify-content:space-between;align-items:center}
+.brand{font-family:var(--display);font-weight:800;font-size:1.05rem}
+.top a.small{font-weight:700;font-size:.95rem;text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:2px}
+
+/* hero */
+.hero{padding:28px 0 64px}
+.hero .wrap{display:grid;gap:40px;align-items:start}
+@media(min-width:900px){.hero .wrap{grid-template-columns:1.05fr .95fr;gap:56px}.hero{padding:48px 0 88px}}
+.hero .lead{margin:22px 0 28px}
+
+/* chat demo: the one memorable element */
+.chat{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:18px 16px 14px;box-shadow:0 18px 40px -24px rgba(27,31,29,.35)}
+.chat-head{display:flex;align-items:center;gap:10px;padding:0 4px 14px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.avatar{width:34px;height:34px;border-radius:50%;background:#F7D9C8;display:grid;place-items:center;font-family:var(--display);font-weight:800;color:var(--accent)}
+.chat-head strong{display:block;font-size:.98rem;line-height:1.2}
+.chat-head span{font-size:.82rem;color:var(--muted)}
+.msg{max-width:88%;padding:11px 14px;border-radius:16px;font-size:.98rem;line-height:1.45;margin-bottom:10px}
+.msg.in{background:var(--bubble-plain);border-top-left-radius:6px}
+.reply{margin:14px 0 6px}
+.reply-label{font-size:.84rem;font-weight:700;color:var(--muted);margin:0 4px 6px;text-align:right}
+.msg.out{margin-left:auto;border-top-right-radius:6px}
+.msg.generic{background:#F4F5F4;border:1px dashed #B9C1BC;color:#59625D}
+.msg.biz{background:var(--bubble-biz)}
+.draft{display:block;margin-top:6px;font-size:.8rem;color:#2F6B2A;font-weight:700}
+.chat-foot{font-size:.8rem;color:var(--muted);margin:10px 4px 0}
+
+/* sections */
+section{padding:64px 0}
+.band{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+/* video */
+.video-grid{display:grid;gap:32px;align-items:center}
+@media(min-width:820px){.video-grid{grid-template-columns:320px 1fr;gap:56px}}
+.video-frame{border-radius:20px;overflow:hidden;background:#000;aspect-ratio:9/16;max-width:320px}
+.video-frame video{width:100%;height:100%;object-fit:cover}
+.ai-note{font-size:.85rem;color:var(--muted);margin-top:10px;max-width:320px}
+
+/* what you build */
+.builds{display:grid;gap:0;border-top:2px solid var(--ink);margin-top:8px}
+.build{display:grid;gap:6px;padding:22px 0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.build{grid-template-columns:260px 1fr;gap:32px}}
+.build p{margin:0;color:var(--muted)}
+
+/* modules: a real sequence, so numbers are earned */
+.modules{list-style:none;margin:8px 0 0;padding:0;counter-reset:m -1}
+.modules li{display:grid;grid-template-columns:52px 1fr;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);counter-increment:m}
+.modules li::before{content:counter(m);font-family:var(--display);font-weight:800;font-size:1.6rem;color:var(--accent);line-height:1}
+.modules li span{font-weight:700}
+.modules li small{display:block;font-size:.9rem;color:var(--muted);font-weight:400}
+.plus{display:inline-block;font-size:.78rem;font-weight:700;color:#7A3B12;background:#FBE6D9;border-radius:6px;padding:1px 7px;margin-left:6px;vertical-align:2px}
+
+/* how it works */
+.facts{display:grid;gap:28px}
+@media(min-width:760px){.facts{grid-template-columns:repeat(3,1fr)}}
+.facts h3{margin-bottom:6px}
+.facts p{color:var(--muted);margin:0}
+
+/* fit */
+.fit{display:grid;gap:28px}
+@media(min-width:760px){.fit{grid-template-columns:1fr 1fr;gap:48px}}
+.fit h3{margin-bottom:10px}
+.fit ul{margin:0;padding-left:1.1em}
+.fit li{margin-bottom:.5em}
+
+/* trail */
+.trail{display:grid;gap:14px;margin-top:6px}
+.level{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:baseline;padding:16px 18px;border-radius:14px;border:1px solid var(--line);background:var(--surface)}
+.level.now{border:2px solid var(--ink)}
+.level b{font-family:var(--display);font-size:1.1rem}
+.level p{margin:0;color:var(--muted)}
+.level .status{display:block;font-size:.85rem;font-weight:700;color:var(--ink);margin-top:2px}
+
+/* guarantee + offer */
+.offer{display:grid;gap:32px;align-items:center}
+@media(min-width:820px){.offer{grid-template-columns:1fr 1fr;gap:56px}}
+.price{font-family:var(--display);font-weight:800;font-size:clamp(3rem,10vw,4.6rem);line-height:1;margin:6px 0 4px}
+.seal{border:2px solid var(--ink);border-radius:18px;padding:24px}
+.seal .days{font-family:var(--display);font-weight:800;font-size:2.4rem;line-height:1}
+
+/* faq */
+details{border-bottom:1px solid var(--line);padding:4px 0}
+summary{cursor:pointer;list-style:none;padding:16px 36px 16px 0;font-weight:700;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;top:12px;font-family:var(--display);font-size:1.5rem;color:var(--accent);transition:transform .2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);margin:0 0 16px}
+
+footer{padding:40px 0 120px;font-size:.88rem;color:var(--muted)}
+@media(min-width:760px){footer{padding-bottom:48px}}
+
+/* sticky buy bar on phones */
+.sticky{position:fixed;left:0;right:0;bottom:0;background:rgba(243,245,242,.96);backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;justify-content:space-between;transform:translateY(110%);transition:transform .25s ease;z-index:10}
+.sticky.show{transform:none}
+.sticky .p{font-weight:700;line-height:1.2}
+.sticky .p small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
+.sticky .buy{padding:12px 18px;min-height:48px;font-size:1rem}
+@media(min-width:760px){.sticky{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <span class="brand">Agentes de IA, Nível 1</span>
+    <a class="small checkout" href="https://pay.hotmart.com/Y108348199U">Comprar</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="t">
+  <div class="wrap">
+    <div>
+      <h1 id="t">Deixe o ChatGPT pronto para o seu negócio.</h1>
+      <p class="lead">Um curso prático para quem não programa. Você monta um assistente que responde com os preços, as regras e o tom de voz do seu negócio, e aprende a conferir tudo antes de usar.</p>
+      <a class="buy checkout" href="https://pay.hotmart.com/Y108348199U">Comprar o Nível 1 por R$ 97</a>
+      <p class="price-note">ou 12x de R$ 10,03 no cartão. Garantia de 7 dias.</p>
+    </div>
+
+    <figure class="chat" aria-label="Exemplo de conversa">
+      <div class="chat-head">
+        <div class="avatar" aria-hidden="true">D</div>
+        <div><strong>Doceria da Ana</strong><span>WhatsApp do negócio</span></div>
+      </div>
+      <p class="msg in">Oi! Vocês entregam no sábado? Quanto fica o kit com 6 brigadeiros gourmet?</p>
+
+      <div class="reply">
+        <p class="reply-label">ChatGPT sem preparo</p>
+        <p class="msg out generic">Olá! Os preços podem variar conforme o estabelecimento. Recomendo entrar em contato diretamente com a confeitaria para saber valores e disponibilidade.</p>
+      </div>
+
+      <div class="reply">
+        <p class="reply-label">Depois do curso, com os dados do negócio</p>
+        <p class="msg out biz">Oi! Entregamos no sábado, das 9h às 13h, aqui no bairro. O kit com 6 brigadeiros gourmet sai por R$ 36, e a entrega é R$ 8. Quer que eu reserve para este sábado?<span class="draft">Rascunho para a equipe revisar antes de enviar</span></p>
+      </div>
+      <figcaption class="chat-foot">Exemplo ilustrativo, com um negócio fictício.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="v">
+  <div class="wrap video-grid">
+    <div>
+      <div class="video-frame">
+        <video controls playsinline preload="none" poster="https://cdn.jsdelivr.net/gh/sgambatti/curso-ia-banners@main/videos/poster.jpg">
+          <source src="https://cdn.jsdelivr.net/gh/sgambatti/curso-ia-banners@main/videos/marcel_nivel1_pt.mp4" type="video/mp4">
+        </video>
+      </div>
+      <p class="ai-note">Vídeo com avatar e voz gerados por IA a partir da imagem e da voz do Marcel.</p>
+    </div>
+    <div class="narrow">
+      <h2 id="v">Do “chat bonito” para o assistente do seu negócio</h2>
+      <p>O ChatGPT responde bem sobre qualquer assunto, mas não conhece o seu cardápio, a sua tabela de preços nem as suas regras de entrega. Por isso a resposta sai genérica.</p>
+      <p>No Nível 1, você coloca os arquivos do seu negócio dentro de um projeto no ChatGPT, testa com perguntas reais de clientes e aprende a conferir cada resposta antes de usar.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="b">
+  <div class="wrap">
+    <h2 id="b">O que você constrói no Nível 1</h2>
+    <div class="builds">
+      <div class="build"><h3>Um projeto no ChatGPT</h3><p>Com os arquivos do seu negócio, testado com perguntas reais.</p></div>
+      <div class="build"><h3>Um plugin de atendimento</h3><p>Ele rascunha respostas de WhatsApp para a sua equipe revisar antes de enviar.</p></div>
+      <div class="build"><h3>Três receitas prontas</h3><p>Uma delas rodando sozinha toda semana.</p></div>
+      <div class="build"><h3>Um checklist de segurança e LGPD</h3><p>Para usar IA com dados de clientes sem se expor.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="m">
+  <div class="wrap narrow">
+    <h2 id="m">Os módulos, em ordem</h2>
+    <ol class="modules">
+      <li><div><span>Comece por aqui</span><small>Boas-vindas e como estudar</small></div></li>
+      <li><div><span>Começando do jeito certo</span></div></li>
+      <li><div><span>Como a IA pensa, sem jargão</span></div></li>
+      <li><div><span>O MAPA do pedido</span></div></li>
+      <li><div><span>A IA que conhece seu negócio</span><span class="plus">ChatGPT Plus</span></div></li>
+      <li><div><span>Arquivos, dados, voz e imagem</span></div></li>
+      <li><div><span>Seu primeiro assistente: um plugin</span><span class="plus">ChatGPT Plus</span></div></li>
+      <li><div><span>Do pedido à receita</span><span class="plus">ChatGPT Plus</span></div></li>
+      <li><div><span>Segurança, ética e LGPD no dia a dia</span></div></li>
+    </ol>
+    <p class="price-note">Cada módulo tem um quiz. Os módulos 1, 2, 3, 5 e 8 funcionam no plano gratuito do ChatGPT. Os módulos 4, 6 e 7 pedem o ChatGPT Plus, que é cobrado à parte pela OpenAI.</p>
+  </div>
+</section>
+
+<section aria-labelledby="h">
+  <div class="wrap">
+    <h2 id="h">Como você estuda</h2>
+    <div class="facts">
+      <div><h3>Material em PDF</h3><p>Passo a passo com prints reais do ChatGPT, para seguir com a tela ao lado.</p></div>
+      <div><h3>Quiz e arquivos de exemplo</h3><p>Um quiz em cada módulo e arquivos prontos para você praticar antes de usar os seus.</p></div>
+      <div><h3>Cerca de 12 horas</h3><p>No seu ritmo, em qualquer dispositivo, pela área de membros da Hotmart.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="f">
+  <div class="wrap">
+    <h2 id="f">Para quem é o Nível 1</h2>
+    <div class="fit">
+      <div>
+        <h3>É para você se</h3>
+        <ul>
+        <li>Você tem um negócio ou atende clientes e repete as mesmas respostas todo dia.</li>
+        <li>Já usa o ChatGPT, mas as respostas saem genéricas.</li>
+        <li>Não programa e quer seguir um passo a passo.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Não é para você se</h3>
+        <ul>
+          <li>Você quer um robô que atende clientes sozinho, 24 horas por dia, já agora. Isso é o Nível 2, ainda em preparação.</li>
+          <li>Você procura promessa de ganho financeiro. O curso não faz essa promessa.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="tr">
+  <div class="wrap narrow">
+    <h2 id="tr">Uma trilha em 3 níveis</h2>
+    <p>O Nível 1 é completo por si só. Os próximos níveis ainda não têm data de lançamento.</p>
+    <div class="trail">
+      <div class="level now"><b>Nível 1</b><p>Conversar e delegar tarefas ao ChatGPT.<span class="status">Disponível</span></p></div>
+      <div class="level"><b>Nível 2</b><p>O assistente sai do ChatGPT e atende clientes sozinho, 24 horas por dia.<span class="status">Em preparação</span></p></div>
+      <div class="level"><b>Nível 3</b><p>Um agente rodando em servidor próprio.<span class="status">Em preparação</span></p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" aria-labelledby="o">
+  <div class="wrap offer">
+    <div>
+      <h2 id="o">Comece hoje</h2>
+      <p class="price">R$ 97</p>
+      <p class="price-note" style="margin-top:0">ou 12x de R$ 10,03 no cartão</p>
+      <p style="margin-top:22px"><a class="buy checkout" href="https://pay.hotmart.com/Y108348199U">Comprar o Nível 1 por R$ 97</a></p>
+      <p class="price-note">Pagamento seguro pela Hotmart. O acesso chega no seu e-mail.</p>
+    </div>
+    <div class="seal">
+      <p class="days">7 dias de garantia</p>
+      <p style="margin:12px 0 0">Comece, faça os primeiros módulos e veja se serve para o seu negócio. Se não for para você, peça o reembolso pela Hotmart dentro de 7 dias.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="q">
+  <div class="wrap narrow">
+    <h2 id="q">Perguntas frequentes</h2>
+    <details><summary>Preciso saber programar?</summary><p>Não. O curso foi feito para quem não programa. Tudo acontece dentro do ChatGPT, com prints de cada passo.</p></details>
+    <details><summary>Preciso pagar o ChatGPT?</summary><p>Os módulos 1, 2, 3, 5 e 8 funcionam no plano gratuito. A partir do módulo 4 você vai precisar do ChatGPT Plus, que é cobrado à parte pela OpenAI e não está incluído no preço do curso.</p></details>
+    <details><summary>O assistente responde os clientes sozinho?</summary><p>No Nível 1, não. O plugin rascunha as respostas de WhatsApp e a sua equipe revisa antes de enviar. O atendimento sozinho, 24 horas por dia, é o Nível 2, que ainda está em preparação.</p></details>
+    <details><summary>Quanto tempo leva?</summary><p>Cerca de 12 horas de prática, no seu ritmo.</p></details>
+    <details><summary>Como recebo o acesso?</summary><p>Depois da compra, a Hotmart envia as instruções de acesso para o seu e-mail. O conteúdo fica na área de membros e pode ser estudado em qualquer dispositivo.</p></details>
+    <details><summary>E se eu não gostar?</summary><p>Você tem 7 dias de garantia. Peça o reembolso pela Hotmart dentro desse prazo.</p></details>
+    <details><summary>É um curso oficial da OpenAI?</summary><p>Não. É um curso independente, e não promete ganho financeiro.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Curso criado por Marcel Sgambatti de Andrade. Pagamento e acesso processados pela Hotmart.</p>
+    <p>Este curso não é oficial da OpenAI. ChatGPT é marca da OpenAI.</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky" aria-hidden="true">
+  <div class="p">R$ 97<small>ou 12x de R$ 10,03</small></div>
+  <a class="buy checkout" href="https://pay.hotmart.com/Y108348199U" tabindex="-1">Comprar o Nível 1</a>
+</div>
+
+<script>
+(function(){
+  // Keep tracking params (utm, src, sck) on every checkout link.
+  var q = window.location.search;
+  if (q && q.length > 1) {
+    var links = document.querySelectorAll('a.checkout');
+    for (var i = 0; i < links.length; i++) {
+      var h = links[i].getAttribute('href');
+      links[i].setAttribute('href', h + (h.indexOf('?') === -1 ? '?' : '&') + q.slice(1));
+    }
+  }
+  // Show the sticky buy bar after the hero leaves the screen.
+  var bar = document.getElementById('sticky');
+  var hero = document.querySelector('.hero');
+  if ('IntersectionObserver' in window && bar && hero) {
+    new IntersectionObserver(function(e){
+      var off = !e[0].isIntersecting;
+      bar.classList.toggle('show', off);
+      bar.setAttribute('aria-hidden', off ? 'false' : 'true');
+      bar.querySelector('a').setAttribute('tabindex', off ? '0' : '-1');
+    }).observe(hero);
+  }
+})();
+</script>
+</body>
+</html>
