@@ -153,6 +153,9 @@ footer{padding:40px 0 120px;font-size:.88rem;color:var(--muted)}
 .sticky .p small{display:block;font-weight:400;color:var(--muted);font-size:.8rem}
 .sticky .buy{padding:12px 18px;min-height:48px;font-size:1rem}
 @media(min-width:760px){.sticky{display:none}}
+/* botão do Agente de Vendas (WhatsApp) sobe quando a barra de compra aparece no celular */
+#hotmart-widget wpp-button{transition:bottom .25s ease}
+@media(max-width:759px){.sticky.show ~ #hotmart-widget wpp-button{bottom:96px !important}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -367,5 +370,21 @@ footer{padding:40px 0 120px;font-size:.88rem;color:var(--muted)}
   }
 })();
 </script>
+
+<!-- Agente de Vendas IA da Hotmart: botão de dúvidas pelo WhatsApp (código gerado no painel, oferta rhc4ipv4) -->
+<div id="hotmart-widget">
+  <wpp-button
+    phone="5531953475617"
+    href="https://pay.hotmart.com/Y108348199U?off=rhc4ipv4&checkoutMode=10"
+    producerName="MARCEL SGAMBATTI DE ANDRADE"
+    productName="Passo a passo para criar agentes de IA — Nível 1"
+    productId="ODg5MDU0OA=="
+    btnSize="40px"
+    extraInfo=""
+    customMessage=""
+    lang="pt_BR"
+  />
+  <script src="https://cta-widget-user-form.hp.hotmart.com/widget/widget.iife.js"></script>
+</div>
 </body>
 </html>
